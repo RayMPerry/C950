@@ -30,7 +30,7 @@
 ** Truck
    - 3 in total
    - Holds 1 driver (and 2 passengers, if necessary)
-   - Carries a maximum of 16 passengers
+   - Carries a maximum of 16 packages
    - Travel at an average speed of 18 mph
    - Have infinite amount of gas; no need to stop
    - Same driver per truck
