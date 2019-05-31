@@ -48,13 +48,14 @@ Looks like I'll need to make some kind of game loop. Might be able to get away w
 
 I should convert the files into CSVs first; I'm not parsing over an XLSX.
 
-Looks like the rub is gonna happen at 1020. Do I really have to figure out pathfinding here?
+Looks like the rub is gonna happen at 1020. Do I really have to figure out pathfinding here? Might need a graph.
 
 No problem, this is something you do intuitively. Just need to learn Python and put it into Python now.
 
 * Steps
 ** TODO Figure out how complex this problem really is
 ** TODO Convert the base files into CSVs
+** TODO Determine which data structures to use
 ** [0/5] Create classes for the entities
 *** TODO Driver
 *** TODO Manager

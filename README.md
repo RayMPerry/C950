@@ -92,7 +92,7 @@ Data Structures and Algorithms II.
 
 3.  Identify two other algorithms that could be used and would have met the criteria and requirements given in the scenario.
 
-a.  Describe how each  algorithm identified in part I3 is different from the algorithm you chose to use in the solution.
+> a.  Describe how each  algorithm identified in part I3 is different from the algorithm you chose to use in the solution.
 
 
 #### J.  Describe what you would do differently if you did this project again.
@@ -101,15 +101,15 @@ a.  Describe how each  algorithm identified in part I3 is different from the alg
 
 1.  Verify that the data structure you chose meets all  the criteria and requirements given in the scenario.
 
-a.  Describe the efficiency of the data structure chosen.
+> a.  Describe the efficiency of the data structure chosen.
 
-b.  Explain the expected overhead when linking to the next data item.
+> b.  Explain the expected overhead when linking to the next data item.
 
-c.  Describe the implications of when more package data is added to the system or other changes in scale occur.
+> c.  Describe the implications of when more package data is added to the system or other changes in scale occur.
 
 2.  Identify two other data structures that can meet the same criteria and requirements given in the scenario.
 
-a.  Describe how each  data structure identified in part K2 is different from the data structure you chose to use in the solution.
+> a.  Describe how each  data structure identified in part K2 is different from the data structure you chose to use in the solution.
 
 #### L.   Acknowledge sources, using in-text citations and references, for content that is quoted, paraphrased, or summarized.
 
