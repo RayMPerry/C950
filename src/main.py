@@ -1,6 +1,6 @@
 # Ray Perry - 000981059
 
-import utils.graph as graph
+from utils import graph, entities
 
 def start_app():
     """
@@ -9,7 +9,7 @@ def start_app():
     print('Generating routes.')
     route_graph = graph.generate()
     node = route_graph.get_node_by_address('3575 W Valley Central Station Bus Loop')
-    print(route_graph.show_edges(node.get_node_id()))
+    print(route_graph.show_edges(node.id))
     print('Beginning application.')
 
 
