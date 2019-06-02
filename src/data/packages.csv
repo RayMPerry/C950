@@ -10,7 +10,7 @@ id, address, city, state, zip_code, delivery_deadline, weight, special_notes
 9,300 State St,Salt Lake City,UT,84103,EOD,2,Wrong address listed
 10,600 E 900 South,Salt Lake City,UT,84105,EOD,1,
 11,2600 Taylorsville Blvd,Salt Lake City,UT,84118,EOD,1,
-12,3575 W Valley Central Station bus Loop,West Valley City,UT,84119,EOD,1,
+12,3575 W Valley Central Station Bus Loop,West Valley City,UT,84119,EOD,1,
 13,2010 W 500 S,Salt Lake City,UT,84104,10:30 AM,2,
 14,4300 S 1300 E,Millcreek,UT,84117,10:30 AM,88,"Must be delivered with 15, 19"
 15,4580 S 2300 E,Holladay,UT,84117,9:00 AM,4,
@@ -36,6 +36,6 @@ id, address, city, state, zip_code, delivery_deadline, weight, special_notes
 35,1060 Dalton Ave S,Salt Lake City,UT,84104,EOD,88,
 36,2300 Parkway Blvd,West Valley City,UT,84119,EOD,88,Can only be on truck 2
 37,410 S State St,Salt Lake City,UT,84111,10:30 AM,2,
-38,410 S State St,Salt Lake City,UT,84111,EOD,9,Can only be on truck 2
+38,410 S State St,Salt Lake City,UT,84111,EOD,9,Can only be on truck 2 
 39,2010 W 500 S,Salt Lake City,UT,84104,EOD,9,
 40,380 W 2880 S,Salt Lake City,UT,84115,10:30 AM,45,

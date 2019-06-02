@@ -52,7 +52,7 @@ class Clock:
     def tick(self):
         if not self.state == ClockState.RUNNING:
             print('Clock is not running.')
-            return
+            return False
         while self.delay > 0:
             self.delay -= self.timestep
             if self.delay_function:
@@ -60,13 +60,15 @@ class Clock:
         self.delay = self.delay_start_point
         self.remaining_time -= self.timestep
         if self.remaining_time <= 0:
-            print('Time\'s up.')
             if not self.is_repeating:
                 self.state = ClockState.STOPPED
             else:
                 self.remaining_time = self.start_point
-            return
+            return True
 
+        return False
+                
+                
     def show(self):
         print(f'Clock: {self.remaining_time} @ {self.timestep} (delayed by {self.delay_start_point}) per tick')
         

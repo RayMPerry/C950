@@ -24,13 +24,20 @@ class PriorityQueue():
     def contents(self):
         return self.items
 
+    def find(self, identifier):
+        results = [item for item in self.items if item.identifier == str(identifier)]
+        return results.pop() if len(results) > 0 else None
+    
+    def modify(self, queue_item, new_value):
+        pass
+
     def __str__(self):
         for index, item in enumerate(self.items):
             print(f'{item.value}')
             
-            if index == (len(self.items) / 2):
-                print('===============TRUCK 2===============')
-            elif  index and not index % 10:
-                print('=============NEXT SHIPMENT===========')
+            # if index == (len(self.items) / 2):
+            #     print('===============TRUCK 2===============')
+            # elif  index and not index % 10:
+            #     print('=============NEXT SHIPMENT===========')
 
         return ''
