@@ -62,6 +62,14 @@ class Graph:
         selected_nodes = list(filter(is_node_selected, self.nodes))
         return selected_nodes[0] if len(selected_nodes) > 0 else None
 
+    def get_edge_by_addresses(self, address1, address2):
+        node1 = self.get_node_by_address(address1)
+        node2 = self.get_node_by_address(address2)
+        selected_edge_id = set(self.edge_lookup[str(node1.id)]) & set(self.edge_lookup[str(node2.id)])
+        if not len(selected_edge_id):
+            return None
+        return self.edges[selected_edge_id.pop()]
+        
     def get_node_by_zip_code(self, zip_code):
         pass
 
