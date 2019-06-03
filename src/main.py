@@ -80,6 +80,8 @@ class Application:
         
         print('Simulation complete.')
         print(f'Total miles traveled: {total_miles_traveled}')
+
+        self.print_packages()
         
         self.quit()
     

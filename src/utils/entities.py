@@ -94,7 +94,7 @@ class Package:
 
     def __str__(self):
         # Returns a formatted string about the package.
-        return f'[ {self.status:28} ] #{self.id:3} addressed to {self.address}, {self.city}, {self.state} {self.zip_code} due @ {self.deadline} ({self.special_notes}) [{self.weight} oz]'
+        return f'[ {self.status:28} ] #{self.id:3} addressed to {self.address}, {self.city}, {self.state} {self.zip_code} due @ {self.deadline} [{self.weight} oz] ({self.special_notes})'
 
 class Truck:
     # This is my truck class.

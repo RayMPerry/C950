@@ -40,6 +40,7 @@ class PriorityQueue():
     
     def __str__(self):
         # This prints a formatted string for each item in the queue.
+        print('')
         for index, item in enumerate(self.items):
             print(f'{item.value}')
 
