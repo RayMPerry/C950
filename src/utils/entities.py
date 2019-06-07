@@ -75,20 +75,20 @@ class Package:
         cities = {
             'Holladay': 0,
             'Murray': 0,
-            'West Valley City': 1000,
-            'Millcreek': 2000,
-            'Salt Lake City': 3000,
+            'West Valley City': 2000,
+            'Millcreek': 3000,
+            'Salt Lake City': 6000,
         }
 
         # Certain phrases in `special_notes` are weighted up and down, based on urgency.
         if 'Delayed on flight' in self.special_notes:
-            special_penalty += 7500
+            special_penalty += 7000
         if 'Can only be on truck 2' in self.special_notes:
             special_penalty += 5000
         if 'Wrong address' in self.special_notes:
-            special_penalty += 2000
+            special_penalty += 2500
         if 'Must be delivered' in self.special_notes:
-            special_penalty -= 1000
+            special_penalty -= 3000
 
         return priority + cities[self.city] + special_penalty
 
@@ -169,7 +169,8 @@ class Truck:
             # If it doesn't have a destination, try to give it one.
             if len(self.packages):
                 # If it has packages, go to the next destination.
-                self.next_node = route_graph.get_closest_node(self.current_node, self.packages)
+                self.next_node = route_graph.get_node_by_address(self.packages[0].address)
+                # self.next_node = route_graph.get_closest_node(self.current_node, self.packages)
                 self.remaining_distance = float(route_graph.get_edge_by_addresses(self.current_node.address, self.next_node.address).distance)
             else:
                 # Otherwise, go back to the Hub to resupply.

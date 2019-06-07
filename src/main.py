@@ -44,7 +44,7 @@ class Application:
         truck_1 = Truck(1, 'Driver 1', 16, hub_node)
         truck_3 = Truck(3, None, 16, hub_node)
         
-        for item in self.pqueue.contents()[0:10]:
+        for item in self.pqueue.contents()[0:9]:
             # For each package in the slice, we load it into the truck and update it on the queue.
             truck_1.load_package(item.value)
             self.update_packages({ 'id': item.identifier, 'status': 'EN ROUTE - TRUCK 1' })
@@ -54,6 +54,7 @@ class Application:
         print('Syncing clock.')
         self.current_time = datetime.datetime(2019, 6, 1, 8, 0, 0).timestamp()
         print('Starting timer.')
+        # self.app_clock = clock.Clock(600, 1, 600, is_repeating=True)
         self.app_clock = clock.Clock(1, 1, 0, is_repeating=True)
         self.app_clock.start()
 
@@ -141,8 +142,8 @@ class Application:
                             # If the truck is empty and it's at the Hub, attempt to resupply it.
                             if not truck.times_resupplied:
                                 # If it has not resupplied at all, resupply the truck.
-                                truck.times_resupplied += 1 
-                                package_group = self.pqueue.contents()[20:31] if truck.id == 1 else self.pqueue.contents()[31:40]
+                                truck.times_resupplied += 1
+                                package_group = self.pqueue.contents()[21:30] if truck.id == 1 else self.pqueue.contents()[30:40]
                                 for item in package_group:
                                     # For each item in the group of packages, load them into the truck.
                                     truck.load_package(item.value)
@@ -157,7 +158,7 @@ class Application:
                     if self.current_time == flight_arrival:
                         # When the flight arrives and we have all the packages, we send out the other truck.
                         truck_2 = Truck(2, 'Driver 2', 16, self.route_graph.get_node_by_address('Hub'))
-                        for item in self.pqueue.contents()[10:20]:
+                        for item in self.pqueue.contents()[9:21]:
                             truck_2.load_package(item.value)
                             self.update_packages({ 'id': item.identifier, 'status': 'EN ROUTE - TRUCK 2' })
                         self.trucks.append(truck_2)
@@ -197,7 +198,7 @@ def load_queue(route_graph, items):
     _pqueue = queue.PriorityQueue()
     for item in items:
         # The farther away the destination is, the lower it goes.
-        distance_penalty = int((float(route_graph.get_edge_by_addresses('Hub', item.address).distance) / 18) * 20000)
+        distance_penalty = int((float(route_graph.get_edge_by_addresses('Hub', item.address).distance) / 18) * 38899)
         _pqueue.push(item.id, item, item.calculate_priority() + distance_penalty)
 
     _pqueue.prioritize()
