@@ -54,7 +54,7 @@ class Application:
         print('Syncing clock.')
         self.current_time = datetime.datetime(2019, 6, 1, 8, 0, 0).timestamp()
         print('Starting timer.')
-        self.app_clock = clock.Clock(600, 1, 600, is_repeating=True)
+        self.app_clock = clock.Clock(1, 1, 0, is_repeating=True)
         self.app_clock.start()
 
         print('Beginning application.')
@@ -96,14 +96,20 @@ class Application:
         print(self.pqueue)
         return False
 
+    def find_package(self, _id):
+        # This finds the package in the priority queue.
+        queue = self.pqueue.contents()
+        queue_item = self.pqueue.find(_id)
+        queue_index = queue.index(queue_item)
+        return queue, queue_item, queue_index
+
     def update_packages(self, event = None):
         # This allows us to update the packages based on a dictionary similar to the package itself.
         if not event:
             return
+
+        queue, queue_item, queue_index = self.find_package(event['id'])
         
-        queue = self.pqueue.contents()
-        queue_item = self.pqueue.find(event['id'])
-        queue_index = self.pqueue.contents().index(queue_item)
         if not queue_item:
             return
         
@@ -118,6 +124,7 @@ class Application:
     def update(self):
         # This is the main update loop.
         flight_arrival = datetime.datetime(2019, 6, 1, 9, 5, 0).timestamp()
+        information_update_time = datetime.datetime(2019, 6, 1, 10, 20, 0).timestamp()
         try:
             # It's rather difficult to get key presses in Python 3 without libraries.
             # So, I catch Ctrl-C (KeyboardInterrupt) and let that be the 'pause' key.
@@ -149,12 +156,14 @@ class Application:
                     self.current_time += 60
                     if self.current_time == flight_arrival:
                         # When the flight arrives and we have all the packages, we send out the other truck.
-                        self.update_packages({ 'id': '9', 'address': '410 S State St', 'city': 'Salt Lake City', 'state': 'UT', 'zip_code': '84111', 'special_notes': '' })
                         truck_2 = Truck(2, 'Driver 2', 16, self.route_graph.get_node_by_address('Hub'))
                         for item in self.pqueue.contents()[10:20]:
                             truck_2.load_package(item.value)
                             self.update_packages({ 'id': item.identifier, 'status': 'EN ROUTE - TRUCK 2' })
                         self.trucks.append(truck_2)
+                    if self.current_time == information_update_time:
+                        self.update_packages({ 'id': '9', 'address': '410 S State St', 'city': 'Salt Lake City', 'state': 'UT', 'zip_code': '84111', 'special_notes': '' })
+
 
                     if len(self.trucks) > 1 and self.trucks[0].finished and self.trucks[1].finished:
                         # If both trucks have completed their rounds, we're done.

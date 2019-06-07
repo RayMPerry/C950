@@ -85,6 +85,19 @@ class Graph:
             return None
         return self.edges[selected_edge_id.pop()]
 
+    def get_closest_node(self, current_node, packages):
+        all_edges = self.show_edges(current_node.id)
+        all_edges.sort(key = lambda edge: edge.distance)
+
+        for edge in all_edges:
+            for package in packages:
+                current_node = self.get_node_by_address(package.address)
+                print(current_node.id, edge.node_id_2)
+                if str(current_node.id) == str(edge.node_id_2):
+                    return current_node
+
+        return self.get_node_by_address(packages[0].address)
+    
 def generate():
     # Using these pseudo-relational flat files, we're going to generate the graph needed for routing.
     new_graph = Graph()

@@ -7,7 +7,8 @@ class PriorityQueueItem:
         self.value = item_value
 
 class PriorityQueue():
-    # This is my priority queue class.
+    # This is my priority queue class. Combined with
+    # PriorityQueueItem, this doubles as my hash table.
     def __init__(self):
         # Set up.
         self.items = []

@@ -118,10 +118,10 @@ class Truck:
         self.times_resupplied = 0
         self.finished = False
 
-    def load_package(self, package):
+    def load_package(self, package, priority = 0):
         # This loads the package into the truck and sorts it again to ensure the weighting is maintained.
         self.packages.append(package)
-        get_priority = lambda item: item.deadline_timestamp - 1000 if 'Delayed' in item.special_notes else item.deadline_timestamp
+        get_priority = lambda item: item.deadline_timestamp + priority - 5000 if 'Delayed' in item.special_notes else item.deadline_timestamp + priority
         self.packages.sort(key = get_priority)
 
     def deliver_package(self, pqueue, current_time):
@@ -169,7 +169,7 @@ class Truck:
             # If it doesn't have a destination, try to give it one.
             if len(self.packages):
                 # If it has packages, go to the next destination.
-                self.next_node = route_graph.get_node_by_address(self.packages[0].address)
+                self.next_node = route_graph.get_closest_node(self.current_node, self.packages)
                 self.remaining_distance = float(route_graph.get_edge_by_addresses(self.current_node.address, self.next_node.address).distance)
             else:
                 # Otherwise, go back to the Hub to resupply.
