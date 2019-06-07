@@ -25,7 +25,7 @@ class Package:
         deadline_array = self.deadline.replace(':', ' ').split(' ')
         if len(deadline_array) == 1:
             # If the array contains exactly one element, it's probably `EOD`.
-            self.deadline_timestamp = datetime.datetime(2019, 6, 1, 21, 0, 0).timestamp()
+            self.deadline_timestamp = datetime.datetime(2019, 6, 1, 17, 0, 0).timestamp()
         elif len(deadline_array) == 3:
             # If the array contains exactly three elements, it was parsable and I can do my math on it.
             hours = int(deadline_array[0]) + 12 if deadline_array[2] == 'PM' and deadline_array[0] != '12' else int(deadline_array[0])
@@ -81,10 +81,10 @@ class Package:
         }
 
         # Certain phrases in `special_notes` are weighted up and down, based on urgency.
+        if 'Delayed on flight' in self.special_notes:
+            special_penalty += 7500
         if 'Can only be on truck 2' in self.special_notes:
             special_penalty += 5000
-        if 'Delayed on flight' in self.special_notes:
-            special_penalty += 2500
         if 'Wrong address' in self.special_notes:
             special_penalty += 2000
         if 'Must be delivered' in self.special_notes:

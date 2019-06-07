@@ -92,7 +92,6 @@ class Graph:
         for edge in all_edges:
             for package in packages:
                 current_node = self.get_node_by_address(package.address)
-                print(current_node.id, edge.node_id_2)
                 if str(current_node.id) == str(edge.node_id_2):
                     return current_node
 
