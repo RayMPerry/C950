@@ -44,18 +44,19 @@ class Application:
         truck_1 = Truck(1, 'Driver 1', 16, hub_node)
         truck_3 = Truck(3, None, 16, hub_node)
         
-        for item in self.pqueue.contents()[0:9]:
+        for item in self.pqueue.contents()[0:12]:
             # For each package in the slice, we load it into the truck and update it on the queue.
             truck_1.load_package(item.value)
             self.update_packages({ 'id': item.identifier, 'status': 'EN ROUTE - TRUCK 1' })
-            
+
+        truck_1.sort_packages_by_distance(self.route_graph)
         self.trucks.append(truck_1)
             
         print('Syncing clock.')
         self.current_time = datetime.datetime(2019, 6, 1, 8, 0, 0).timestamp()
         print('Starting timer.')
-        # self.app_clock = clock.Clock(600, 1, 600, is_repeating=True)
-        self.app_clock = clock.Clock(1, 1, 0, is_repeating=True)
+        self.app_clock = clock.Clock(600, 1, 600, is_repeating=True)
+        # self.app_clock = clock.Clock(1, 1, 0, is_repeating=True)
         self.app_clock.start()
 
         print('Beginning application.')
@@ -148,6 +149,7 @@ class Application:
                                     # For each item in the group of packages, load them into the truck.
                                     truck.load_package(item.value)
                                     self.update_packages({ 'id': item.identifier, 'status': f'EN ROUTE - TRUCK {truck.id}' })
+                                truck.sort_packages_by_distance(self.route_graph)
                             elif truck.times_resupplied == 1:
                                 # If the truck has already resupplied once, it's done.
                                 truck.done()
@@ -158,9 +160,10 @@ class Application:
                     if self.current_time == flight_arrival:
                         # When the flight arrives and we have all the packages, we send out the other truck.
                         truck_2 = Truck(2, 'Driver 2', 16, self.route_graph.get_node_by_address('Hub'))
-                        for item in self.pqueue.contents()[9:21]:
+                        for item in self.pqueue.contents()[12:21]:
                             truck_2.load_package(item.value)
                             self.update_packages({ 'id': item.identifier, 'status': 'EN ROUTE - TRUCK 2' })
+                        truck_2.sort_packages_by_distance(self.route_graph)
                         self.trucks.append(truck_2)
                     if self.current_time == information_update_time:
                         self.update_packages({ 'id': '9', 'address': '410 S State St', 'city': 'Salt Lake City', 'state': 'UT', 'zip_code': '84111', 'special_notes': '' })

@@ -120,11 +120,11 @@ class Truck:
 
     def load_package(self, package, priority = 0):
         # This loads the package into the truck and sorts it again to ensure the weighting is maintained.
+        highest_priority = lambda item: item.deadline_timestamp + priority - 5000 if 'Delayed' in item.special_notes else item.deadline_timestamp + priority
+        self.packages.sort(key = highest_priority)
         self.packages.append(package)
-        get_priority = lambda item: item.deadline_timestamp + priority - 5000 if 'Delayed' in item.special_notes else item.deadline_timestamp + priority
-        self.packages.sort(key = get_priority)
 
-    def deliver_package(self, pqueue, current_time):
+    def deliver_package(self, route_graph, pqueue, current_time):
         # If we've reached our destination, attempt to deliver the appropriate packages.
         if len(self.packages) <= 0:
             return
@@ -142,7 +142,14 @@ class Truck:
                 return
         
             queue[queue_index].value.status = 'DELIVERED LATE' if current_time > package_to_deliver.deadline_timestamp else 'DELIVERED'
+        self.sort_packages_by_distance(route_graph)
 
+    def sort_packages_by_distance(self, route_graph):
+        def closest_distance(package):
+            distance = float(route_graph.get_edge_by_addresses(self.current_node.address, package.address).distance)
+            return distance * -1 if 'Delayed' in package.special_notes else distance 
+        self.packages.sort(key = closest_distance)
+            
     def get_current_progress(self):
         # This returns a formatted string based on the truck's progress.
         truck_id = self.id
@@ -184,7 +191,7 @@ class Truck:
         if self.remaining_distance <= 0:
             # If we've reached the destination, deliver the packages and wait.
             self.current_node = self.next_node
-            self.deliver_package(pqueue, current_time)
+            self.deliver_package(route_graph, pqueue, current_time)
             self.next_node = None
         
     def done(self):
