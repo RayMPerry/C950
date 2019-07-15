@@ -119,9 +119,7 @@ class Truck:
         self.finished = False
 
     def load_package(self, package, priority = 0):
-        # This loads the package into the truck and sorts it again to ensure the weighting is maintained.
-        highest_priority = lambda item: item.deadline_timestamp + priority - 5000 if 'Delayed' in item.special_notes else item.deadline_timestamp + priority
-        self.packages.sort(key = highest_priority)
+        # This loads the package into the truck.
         self.packages.append(package)
 
     def deliver_package(self, route_graph, pqueue, current_time):
@@ -145,6 +143,7 @@ class Truck:
         self.sort_packages_by_distance(route_graph)
 
     def sort_packages_by_distance(self, route_graph):
+        # This sorts all the packages on the truck by distance ascending.
         def closest_distance(package):
             distance = float(route_graph.get_edge_by_addresses(self.current_node.address, package.address).distance)
             return distance * -1 if 'Delayed' in package.special_notes else distance 
