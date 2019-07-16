@@ -12,6 +12,10 @@ class ProgramState(Enum):
 
 class Application:
     # This is the main class for the simulation.
+    # This is the entry point for all the entities in the system.
+    # It can also be considered "global scope".
+    # All entities will be instantiated at this level.
+    
     def __init__(self):
         # We initialize most of the constants here.
         self.state = ProgramState.RUNNING
@@ -125,6 +129,8 @@ class Application:
     
     def update(self):
         # This is the main update loop.
+        # We will simulate each second inside of this function.
+        # We will also check for a KeyboardInterrupt to ensure that the user can pause the simulation.
         flight_arrival = datetime.datetime(2019, 6, 1, 9, 5, 0).timestamp()
         information_update_time = datetime.datetime(2019, 6, 1, 10, 20, 0).timestamp()
         try:

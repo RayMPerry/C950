@@ -126,7 +126,8 @@ class Truck:
         # If we've reached our destination, attempt to deliver the appropriate packages.
         if len(self.packages) <= 0:
             return
-        
+
+        datetime_object = datetime.datetime(2019, 6, 1)
         packages_to_deliver = [package for package in self.packages if package.address == self.current_node.address]
         self.packages = [package for package in self.packages if package.address != self.current_node.address]
         
@@ -139,7 +140,7 @@ class Truck:
                 # If you can't find it, throw it out.
                 return
         
-            queue[queue_index].value.status = 'DELIVERED LATE' if current_time > package_to_deliver.deadline_timestamp else 'DELIVERED'
+            queue[queue_index].value.status = f'DELIVERED LATE @ {datetime_object.fromtimestamp(current_time)}' if current_time > package_to_deliver.deadline_timestamp else f'DELIVERED @ {datetime_object.fromtimestamp(current_time)}'
         self.sort_packages_by_distance(route_graph)
 
     def sort_packages_by_distance(self, route_graph):
